@@ -1,0 +1,41 @@
+.load-more {
+    display: flex;
+    justify-content: center;
+    min-height: 166px;
+  }
+  
+.more {
+    background: #202020;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0 80px;
+}
+
+.more-button {
+    width: 320px;
+    height: 36px;
+    color: #FFFFFF;
+    background: #2F2F2F;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.05s linear;
+}
+
+.more-button:hover{
+    opacity: 0.6;
+}
+
+.spacer {
+    height: 140px;
+  }
+
+@media (max-width: 470px) {
+    .more-button {
+        width: 240px;
+    }
+}

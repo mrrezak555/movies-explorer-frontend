@@ -1,0 +1,118 @@
+.popup {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s linear;
+  font-family: 'Inter', sans-serif;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__close-button {
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  top: 22.4px;
+  right: 22.4px;
+}
+
+.modal-menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 520px;
+  background-color: #202020;
+}
+
+.modal-nav-bar__list {
+  padding: 0;
+  list-style: none;
+  margin-top: 159px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.modal-menu__link {
+  color: white;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.modal-menu__link_active {
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-thickness: 2px;
+}
+
+.account-menu {
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  width: 100px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  border-radius: 50px;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  padding: 8px 12px;
+}
+
+.account-menu__name {
+  text-decoration: none;
+  margin: 0;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px
+}
+
+@media screen and (max-width: 767px) {
+  .modal-menu {
+    right: 0;
+    width: 70%;
+  }
+
+  .modal-nav-bar__list {
+    margin-top: 144px;
+  }
+
+  .modal-menu__item:last-child {
+    margin-top: -5px;
+  }
+
+  .account-menu {
+    margin-bottom: 46px;
+  }
+
+  .popup__close-button {
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    top: 13.4px;
+    right: 13.4px;
+  }
+}
