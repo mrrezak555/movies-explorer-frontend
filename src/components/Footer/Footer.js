@@ -9,7 +9,7 @@ export default function Footer() {
         <p className="footer__copyright footer__item">© {(new Date()).getFullYear()}</p>
         <div className="footer__links">
           <a href="https://practicum.yandex.ru/" className="footer__item" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
-          <a href="https://https://github.com/mrrezak555" className="footer__item" target="_blank" rel="noreferrer">Github</a>
+          <a href="https://github.com/mrrezak555" className="footer__item" target="_blank" rel="noreferrer">Github</a>
         </div>
       </div>
     </footer>

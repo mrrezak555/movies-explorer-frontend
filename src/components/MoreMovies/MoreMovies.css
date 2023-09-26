@@ -34,8 +34,18 @@
     height: 140px;
   }
 
+@media (max-width: 970px) {
+    .more {
+        padding: 75px 0 80px;
+    }
+}
+
 @media (max-width: 470px) {
     .more-button {
         width: 240px;
+    }
+
+    .more {
+        padding: 70px 0 80px;
     }
 }

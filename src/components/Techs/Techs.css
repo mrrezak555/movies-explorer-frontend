@@ -34,7 +34,7 @@
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
-    letter-spacing: -0.04em;
+    letter-spacing: -2px;
     color: #FFFFFF;
 }
 
@@ -45,7 +45,7 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.56px;
     color: #FFFFFF;
 }
 
@@ -96,7 +96,7 @@
 
 @media (max-width: 970px) {
     .techs__elements {
-        padding: 80px 0 90px 0;
+        padding: 80px 0 80px 0;
     }
 }
 
@@ -108,7 +108,7 @@
 
 @media (max-width: 970px) {
     .techs__elements-subtitle {
-        margin-bottom: 83px;
+        margin-bottom: 85px;
     }
 }
 
@@ -168,8 +168,8 @@
     }
 }
 
-@media (max-width: 970px) {
+@media (max-width: 470px) {
     .techs__elements {
-        padding: 60px 0 70px 0;
+        padding: 60px 0 80px 0;
     }
 }

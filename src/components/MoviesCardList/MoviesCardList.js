@@ -46,9 +46,9 @@ export default function MoviesCardList({ data, element }) {
 
   return (
     <section className="movies-card">
-      <div className="movies-card-list">
+      <ul className="movies-card-list">
         {cards}
-      </div>
+      </ul>
     </section>
   )
 }

@@ -56,9 +56,8 @@ const Navigation = () => {
         ) : (
           <>
             <Link to="/profile" className="account navigation__account-link">
-              {/* <Account /> */}
-              <p className="account__name">Аккаунт</p>
               <img src={Account} alt="Иконка аккаунта" />
+              <p className="account__name">Аккаунт</p>
             </Link>
             <BurgerMenu onClick={openPopup} />
           </>

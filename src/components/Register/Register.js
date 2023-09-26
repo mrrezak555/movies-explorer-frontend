@@ -8,9 +8,15 @@ function Register(props) {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [name, setName] = React.useState('');
+
 
     function handleChangeEmail(e) {
         setEmail(e.target.value);
+    }
+
+    function handleChangeName(e) {
+        setName(e.target.value);
     }
 
     function handleChangePassword(e) {
@@ -22,35 +28,66 @@ function Register(props) {
         e.preventDefault();
         setEmail('')
         setPassword('')
+        setName('')
         // Передаём значения управляемых компонентов во внешний обработчик
         props.onRegisterUser({
             "password": password,
-            "email": email
+            "email": email,
+            "name": name,
         });
     }
 
     return (
-        <>
+        <main>
             <div className='form-container'>
                 <div className="form-in">
                     <img className="form-in__logo" alt='Лого' src={logo} />
                     <h1 className="form-in__title">Добро пожаловать!</h1>
                     <form className="form-in__form" onSubmit={handleSubmit}>
-                        <section className="form-in__section">
-                            <p className='form-in__input-name'>Имя</p>
-                            <input type="text" className="form-in__input" id="email_sign-in" name="email_sign-in" required minLength="2" maxLength="40" onChange={handleChangeEmail} value={email || ''} />
+                        <div className="form-in__section">
+                            <label className='form-in__input-name'>Имя</label>
+                            <input
+                                type="text"
+                                className="form-in__input"
+                                id="email_sign-in"
+                                name="email_sign-in"
+                                placeholder='Виталий'
+                                required minLength="2"
+                                maxLength="40"
+                                onChange={handleChangeName}
+                                value={name || ''}
+                            />
                             <span className="form-in__input-error"></span>
-                        </section>
-                        <section className="form-in__section">
-                            <p className='form-in__input-name'>E-mail</p>
-                            <input type="text" className="form-in__input" id="email_sign-in" name="email_sign-in" required minLength="2" maxLength="40" onChange={handleChangeEmail} value={email || ''} />
+                        </div>
+                        <div className="form-in__section">
+                            <label className='form-in__input-name'>E-mail</label>
+                            <input
+                                type="text"
+                                className="form-in__input"
+                                id="email_sign-in"
+                                name="email_sign-in"
+                                placeholder='NewPochta@yandex.ru'
+                                required minLength="2"
+                                maxLength="40"
+                                onChange={handleChangeEmail}
+                                value={email || ''}
+                            />
                             <span className="form-in__input-error"></span>
-                        </section>
-                        <section className="form-in__section">
-                            <p className='form-in__input-name'>Пароль</p>
-                            <input type="password" className="form-in__input" id="password_sign-in" name="password_sign-in" required minLength="2" maxLength="200" onChange={handleChangePassword} value={password || ''} />
+                        </div>
+                        <dvi className="form-in__section">
+                            <label className='form-in__input-name'>Пароль</label>
+                            <input
+                                type="password"
+                                className="form-in__input"
+                                id="password_sign-in"
+                                name="password_sign-in"
+                                placeholder='Password'
+                                required minLength="2"
+                                maxLength="200"
+                                onChange={handleChangePassword}
+                                value={password || ''} />
                             <span className="form-in__input-error"></span>
-                        </section>
+                        </dvi>
                         <button type="submit" className="form-in__submit">Зарегистрироваться</button>
                     </form>
                     <div className='form-in__link-container'>
@@ -59,7 +96,7 @@ function Register(props) {
                     </div>
                 </div>
             </div>
-        </>
+        </main>
     )
 }
 

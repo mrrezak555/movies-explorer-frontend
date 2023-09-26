@@ -7,7 +7,7 @@
     /* background-color: #202020; */
     font-family: 'Inter', sans-serif;
     max-width: 1140px;
-    margin: auto;
+    margin: 0 70px 0;
   }
   
   .navigation__left {
@@ -103,7 +103,7 @@
   }
   
   .navigation__link_signup {
-    color: #000;
+    color: #ffffff;
   }
   .navigation__link_signin {
     color: #ffffff;
@@ -115,12 +115,6 @@
     display: none;
   }
   
-  @media screen and (max-width: 1250px) {
-    .navigation {
-      margin: 0 70px 0;
-    }
-  }
-
   @media screen and (max-width: 900px) {
     .navigation {
       padding: 0;

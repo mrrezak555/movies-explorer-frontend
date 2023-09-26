@@ -1,3 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts.css);
 
+input:focus {
+  outline: none;
+  border-left: 1px solid #4285F4;
+}

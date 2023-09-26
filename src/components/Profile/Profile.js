@@ -1,5 +1,5 @@
 import "./Profile.css"
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import React from "react";
 import Navigation from "../Navigation/Navigation";
 
@@ -27,7 +27,7 @@ function Profile(props) {
         });
     }
     return (
-        <>
+        <main>
             <div className="form-profile__wrapper">
                 <Navigation />
             </div>
@@ -46,10 +46,12 @@ function Profile(props) {
                         </section>
                         <button type="submit" className="form-in-profile__submit">Редактировать</button>
                     </form>
-                    <button type="button" className="form-in-profile__exit-button">Выйти из аккаунта</button>
+                    <Link to={'/'}>
+                        <button type="button" className="form-in-profile__exit-button">Выйти из аккаунта</button>
+                    </Link>
                 </div>
             </div>
-        </>
+        </main>
     );
 }
 

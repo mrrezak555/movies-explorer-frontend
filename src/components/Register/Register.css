@@ -44,7 +44,7 @@
 }
 
 .form-in__section:last-of-type {
-    margin-bottom: 134px;
+    margin-bottom: 155px;
 }
 
 .form-in__form {
@@ -103,6 +103,10 @@
     opacity: 0.6;
 }
 
+@media (max-width: 769px) {
+   
+}
+
 @media (max-width: 470px) {
     .form-container {
        align-items: flex-start;
@@ -147,6 +151,13 @@
 
 @media (max-width: 470px) {
     .form-in__section:last-of-type {
-        margin-bottom: 222px;
+        margin-bottom: 242px;
+    }
+}
+
+
+@media (max-width: 470px) {
+    .form-in__title {
+        margin: 48px 0 83px;
     }
 }

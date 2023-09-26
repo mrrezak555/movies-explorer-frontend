@@ -16,12 +16,12 @@ export default function SavedMovies() {
       <Popup />
       <section className='saved-movies'>
         <Navigation />
-        <>
+        <main>
           <SearchForm />
           <MoviesCardList data={data.filmArraySaved}
             element={DeleteButton} />
           <MoreMovies isMore={false} />
-        </>
+        </main>
         <Footer />
       </section>
     </>

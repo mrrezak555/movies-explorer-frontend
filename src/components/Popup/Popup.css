@@ -116,3 +116,9 @@
     right: 13.4px;
   }
 }
+
+@media screen and (max-width: 470px) {
+  .modal-menu {
+    width: 100%;
+  }
+}

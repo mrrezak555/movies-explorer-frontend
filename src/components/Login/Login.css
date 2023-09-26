@@ -44,7 +44,7 @@
 }
 
 .form-in__section:last-of-type {
-    margin-bottom: 134px;
+    margin-bottom: 224px;
 }
 
 .form-in__form {
@@ -147,6 +147,12 @@
 
 @media (max-width: 470px) {
     .form-in__section:last-of-type {
-        margin-bottom: 222px;
+        margin-bottom: 309px;
+    }
+}
+
+@media (max-width: 769px) {
+    .form-in__section:last-of-type {
+        margin-bottom: 226px;
     }
 }
