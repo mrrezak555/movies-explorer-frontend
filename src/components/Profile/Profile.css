@@ -8,7 +8,7 @@
     padding-top: 75px;
 }
 
-.form-profile__wrapper {
+.form-profile-wrapper {
     background: #202020;
 }
 
@@ -122,6 +122,10 @@
 @media (max-width: 970px) {
     .form-in-profile__title {
         margin-bottom: 96px;
+    }
+
+    .form-profile-container {
+        padding-top: 236px;
     }
 }
 

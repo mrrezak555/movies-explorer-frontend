@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import React from "react";
 import './Login.css';
 import logo from '../../images/logo.svg'
@@ -33,7 +33,9 @@ function Login(props) {
         <main>
             <div className='form-container'>
                 <div className="form-in">
-                    <img className="form-in__logo" alt='Лого' src={logo} />
+                    <Link to={'/'}>
+                        <img className="form-in__logo" alt='Лого' src={logo} />
+                    </Link>
                     <h1 className="form-in__title">Рады видеть!</h1>
                     <form className="form-in__form" onSubmit={handleSubmit}>
                         <div className="form-in__section">

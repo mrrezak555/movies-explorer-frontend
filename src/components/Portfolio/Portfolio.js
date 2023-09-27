@@ -9,20 +9,20 @@ function Portfolio() {
                 <ul className="portfolio__links">
                     <li>
                         <a href="https://github.com/mrrezak555/how-to-learn" className="portfolio__link" target="_blank" rel="noreferrer">
-                            <p className="portfolio__link__text">Статичный сайт</p>
-                            <img className="portfolio__link__pointer" src={pointer} alt="Стрелка" />
+                            <p className="portfolio__link-text">Статичный сайт</p>
+                            <img className="portfolio__link-pointer" src={pointer} alt="Стрелка" />
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/mrrezak555/russian-travel" className="portfolio__link" target="_blank" rel="noreferrer">
-                            <p className="portfolio__link__text">Адаптивный сайт</p>
-                            <img className="portfolio__link__pointer" src={pointer} alt="Стрелка" />
+                            <p className="portfolio__link-text">Адаптивный сайт</p>
+                            <img className="portfolio__link-pointer" src={pointer} alt="Стрелка" />
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/mrrezak555/react-mesto-api-full-gha" className="portfolio__link" target="_blank" rel="noreferrer">
-                            <p className="portfolio__link__text">Одностраничное приложение</p>
-                            <img className="portfolio__link__pointer" src={pointer} alt="Стрелка" />
+                            <p className="portfolio__link-text">Одностраничное приложение</p>
+                            <img className="portfolio__link-pointer" src={pointer} alt="Стрелка" />
                         </a>
                     </li>
                 </ul>

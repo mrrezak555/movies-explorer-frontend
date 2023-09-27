@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import React from "react";
 import './Register.css';
 import logo from '../../images/logo.svg'
@@ -41,7 +41,9 @@ function Register(props) {
         <main>
             <div className='form-container'>
                 <div className="form-in">
-                    <img className="form-in__logo" alt='Лого' src={logo} />
+                    <Link to={'/'}>
+                        <img className="form-in__logo" alt='Лого' src={logo} />
+                    </Link>
                     <h1 className="form-in__title">Добро пожаловать!</h1>
                     <form className="form-in__form" onSubmit={handleSubmit}>
                         <div className="form-in__section">
@@ -74,7 +76,7 @@ function Register(props) {
                             />
                             <span className="form-in__input-error"></span>
                         </div>
-                        <dvi className="form-in__section">
+                        <div className="form-in__section">
                             <label className='form-in__input-name'>Пароль</label>
                             <input
                                 type="password"
@@ -87,7 +89,7 @@ function Register(props) {
                                 onChange={handleChangePassword}
                                 value={password || ''} />
                             <span className="form-in__input-error"></span>
-                        </dvi>
+                        </div>
                         <button type="submit" className="form-in__submit">Зарегистрироваться</button>
                     </form>
                     <div className='form-in__link-container'>

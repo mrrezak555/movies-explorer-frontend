@@ -7,7 +7,7 @@
     /* background-color: #202020; */
     font-family: 'Inter', sans-serif;
     max-width: 1140px;
-    margin: 0 70px 0;
+    margin: auto;
   }
   
   .navigation__left {
@@ -22,6 +22,10 @@
   
   .navigation > .navigation__logo {
     margin-right: 44px;
+  }
+
+  .navigation__account-link:hover {
+    cursor: pointer;
   }
   
   .nav-bar__list {
@@ -47,6 +51,10 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 18px
+  }
+
+  .nav-bar__link:hover {
+    cursor: pointer;
   }
   
   .nav-bar__link_active {
@@ -115,6 +123,17 @@
     display: none;
   }
   
+  .navigation__account-burger {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+@media (max-width:1280px) {
+  .navigation {
+    margin: 0 auto 0;
+  }
+}
+
   @media screen and (max-width: 900px) {
     .navigation {
       padding: 0;

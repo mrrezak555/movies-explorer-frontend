@@ -13,7 +13,7 @@ function Movies(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <main>
+    <div>
       <section className="movies">
         <Navigation />
         <SearchForm />
@@ -27,7 +27,7 @@ function Movies(props) {
         )}
       </section>
       <Footer />
-    </main>
+    </div>
   );
 }
 

@@ -15,7 +15,7 @@
 }
 
 .form-in__title {
-    margin: 40px 0;
+    margin: 40px 0 35px;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
@@ -23,7 +23,7 @@
 }
 
 .form-in__section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .form-in__input-name {
@@ -41,6 +41,7 @@
     border: none;
     background: none;
     border-bottom: 1px solid #424242;
+    font-size: 14px;
 }
 
 .form-in__section:last-of-type {
@@ -151,13 +152,13 @@
 
 @media (max-width: 470px) {
     .form-in__section:last-of-type {
-        margin-bottom: 242px;
+        margin-bottom: 240px;
     }
 }
 
 
 @media (max-width: 470px) {
     .form-in__title {
-        margin: 48px 0 83px;
+        margin: 48px 0 74px;
     }
 }

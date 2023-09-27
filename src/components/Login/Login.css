@@ -15,7 +15,7 @@
 }
 
 .form-in__title {
-    margin: 40px 0;
+    margin: 40px 0 33px;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
@@ -23,7 +23,7 @@
 }
 
 .form-in__section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .form-in__input-name {
@@ -103,6 +103,12 @@
     opacity: 0.6;
 }
 
+@media (max-width: 769px) {
+    .form-in__section:last-of-type {
+        margin-bottom: 220px;
+    }
+}
+
 @media (max-width: 470px) {
     .form-container {
        align-items: flex-start;
@@ -114,6 +120,10 @@
     .form-in {
         max-width: 260px;
         align-items: center;
+    }
+
+    .form-in__title {
+        margin: 50px 0 75px;
     }
 }
 
@@ -151,8 +161,3 @@
     }
 }
 
-@media (max-width: 769px) {
-    .form-in__section:last-of-type {
-        margin-bottom: 226px;
-    }
-}

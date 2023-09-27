@@ -13,7 +13,7 @@ li {
     align-items: center;
 }
 
-.movie-card__container {
+.movie-card-container {
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -42,8 +42,10 @@
 
 
 .search {
-    max-width: 1140px;
     margin: 60px;
+    /* margin: 57px auto 60px; */
+    padding-left: 10px;
+    max-width: 1140px;
 }
 
 
@@ -54,6 +56,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #424242;
+    max-width: 1140px;
 }
 
 .search__form-input {
@@ -92,6 +95,11 @@
     display: flex;
     margin-top: 33px;
     padding-bottom: 55px;
+}
+
+.search__toggle-container:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .search__toggle-text {

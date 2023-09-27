@@ -21,10 +21,10 @@ const Navigation = () => {
   const { isLoggedIn } = useContext(LogInContext);
 
   return (
-    <header className="navigation">
+    <div className="navigation">
       <div className="navigation__left">
         <Link to="/">
-          <img className="header__logo" src={logo} alt="Лого" />
+          <img src={logo} alt="Лого" />
         </Link>
         {!isLoggedIn && (
           <nav className="nav-bar">
@@ -63,7 +63,7 @@ const Navigation = () => {
           </>
         )}
       </div>
-    </header>
+    </div>
   );
 };
 

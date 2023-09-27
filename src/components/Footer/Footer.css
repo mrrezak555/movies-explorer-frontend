@@ -43,6 +43,10 @@
   line-height: normal;
 }
 
+.footer__item:hover {
+  cursor: pointer;
+}
+
 .footer__links {
   display: flex;
   gap: 20px;
@@ -94,6 +98,6 @@
 
 @media screen and (max-width: 470px) {
   .footer {
-    padding: 79px 0 0 0;
+    padding: 61px 0 0 0;
   }
 }

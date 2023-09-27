@@ -28,7 +28,7 @@ function Profile(props) {
     }
     return (
         <main>
-            <div className="form-profile__wrapper">
+            <div className="form-profile-wrapper">
                 <Navigation />
             </div>
             <div className='form-profile-container'>
@@ -37,11 +37,31 @@ function Profile(props) {
                     <form className="form-in-profile__form" onSubmit={handleSubmit}>
                         <section className="form-in-profile__section">
                             <p className='form-in-profile__input-name'>Имя</p>
-                            <input type="text" className="form-in-profile__input" id="email_sign-in" name="email_sign-in" required minLength="2" maxLength="40" onChange={handleChangeEmail} value={email || ''} />
+                            <input
+                                type="text"
+                                className="form-in-profile__input"
+                                id="email_sign-in"
+                                name="email_sign-in"
+                                placeholder="Виталий"
+                                required minLength="2"
+                                maxLength="40"
+                                onChange={handleChangeEmail}
+                                value={email || ''}
+                            />
                         </section>
                         <section className="form-in-profile__section">
                             <p className='form-in-profile__input-name'>E-mail</p>
-                            <input type="password" className="form-in-profile__input" id="password_sign-in" name="password_sign-in" required minLength="2" maxLength="200" onChange={handleChangePassword} value={password || ''} />
+                            <input
+                                type="password"
+                                className="form-in-profile__input"
+                                id="password_sign-in"
+                                name="password_sign-in"
+                                placeholder="pochta@yandex.ru"
+                                required minLength="2"
+                                maxLength="200"
+                                onChange={handleChangePassword}
+                                value={password || ''}
+                            />
                             <span className="form-in-profile__input-error"></span>
                         </section>
                         <button type="submit" className="form-in-profile__submit">Редактировать</button>

@@ -2,8 +2,8 @@ import './MoviesCard.css';
 
 function MoviesCard({ photo, title, duration, isOwned, element: Component }) {
   return (
-    <li className='movies-card'>
-      <div className='movie-card__container'>
+    <li className='movie-card'>
+      <div className='movie-card-container'>
         <div className='movie-card__wrapper'>
           <h2 className='movie-card__info-text'>{title}</h2>
           <p className='movie-card__duration'>{duration}</p>
