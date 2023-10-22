@@ -4,12 +4,24 @@ import './index.css';
 import App from '../src/components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { CurrentUserProvider } from './context/CurrentUserContext';
+import { InputProvider } from './context/inputContext';
+import { MoviesProvider } from './context/MoviesContext';
+import { SavedInputProvider } from './context/SavedInputContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <CurrentUserProvider>
+        <MoviesProvider>
+          <InputProvider>
+            <SavedInputProvider>
+              <App />
+            </SavedInputProvider>
+          </InputProvider>
+        </MoviesProvider>
+      </CurrentUserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

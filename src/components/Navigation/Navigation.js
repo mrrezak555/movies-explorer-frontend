@@ -3,7 +3,6 @@ import "./Navigation.css";
 import { Link, useLocation } from "react-router-dom";
 import logo from '../../images/logo_header.svg'
 import { PopupContext } from "../../context/PopupProvider";
-import { LogInContext } from "../../context/LoginContext";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Account from '../../images/Account.svg';
 
@@ -18,7 +17,7 @@ const Navigation = () => {
   };
 
   const { openPopup } = useContext(PopupContext);
-  const { isLoggedIn } = useContext(LogInContext);
+  const isLoggedIn = localStorage.getItem("id");
 
   return (
     <div className="navigation">
@@ -26,7 +25,7 @@ const Navigation = () => {
         <Link to="/">
           <img src={logo} alt="Лого" />
         </Link>
-        {!isLoggedIn && (
+        {isLoggedIn && (
           <nav className="nav-bar">
             <ul className="nav-bar__list">
               <li className="nav-bar__item">
@@ -44,7 +43,7 @@ const Navigation = () => {
         )}
       </div>
       <div className="navigation__right">
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <nav className="navigation__menu">
             <button type='button' className="navigation__signup">
               <Link to="/signup" className="navigation__link navigation__link_signup">Регистрация</Link>

@@ -1,54 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './MoviesCardList.css'
-import MoviesCard from '../MoviesCard/MoviesCard'
+import MoviesCard from '../MoviesCard/MoviesCards'
+import Preloader from '../Preloader/Preloader';
 
-export default function MoviesCardList({ data, element }) {
-
-  const [cardsCount, setCardsCount] = useState(0)
-
-  const updateCardsCount = () => {
-    const screenWidth = window.innerWidth
-
-    if (screenWidth >= 1280) {
-      return setCardsCount(16)
-    }
-
-    if (screenWidth >= 767) {
-      return setCardsCount(8)
-
-    } else {
-      setCardsCount(5)
-    }
+export default function MoviesCardList({ data, addHandler, deleteHandler, isLoading, error }) {
+  const cards =
+    data &&
+    data.map(item => {
+      return (
+        <MoviesCard
+          data={item}
+          remove={deleteHandler}
+          add={addHandler}
+          key={item.id}
+        />
+      );
+    });
+  if (error) {
+    return (
+      <section className={"movies-card"}>
+        <h1>Ничего не найдено</h1>
+      </section>
+    );
   }
-  useEffect(() => {
-    updateCardsCount();
-    window.addEventListener('resize', updateCardsCount);
-    return () => {
-      window.removeEventListener('resize', updateCardsCount);
-    };
-  }, []);
-
-  const cards = data && data.map((card, iteration) => {
-    if (iteration > cardsCount - 1) {
-      return null
-    }
-
-    iteration++
-
-    return <MoviesCard
-      key={iteration}
-      photo={card.photo}
-      duration={card.duration}
-      element={element}
-      title={card.title}
-      isOwned={card.isOwned} />
-  })
-
   return (
-    <section className="movies-card">
-      <ul className="movies-card-list">
-        {cards}
-      </ul>
+    <section className={"movies-card"}>
+      {isLoading ? (
+        <>
+          <Preloader />
+        </>
+      ) : (
+        <ul className={"movies-card__list"}>{cards}</ul>
+      )}
     </section>
-  )
-}
+  );
+};

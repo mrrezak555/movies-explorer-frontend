@@ -1,33 +1,46 @@
-import { Link, NavLink } from 'react-router-dom';
-import React from "react";
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
 import './Login.css';
 import logo from '../../images/logo.svg'
+import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import useValidation from '../../hooks/useValidation';
 
 
-function Login(props) {
+function Login() {
+    const navigate = useNavigate();
+    const {
+        values,
+        handleChange,
+        errors,
+        isValid,
+        resetForm
+    } = useValidation();
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const { setLoggedIn, setUser } = useContext(CurrentUserContext);
+    const [disabled, setDisabled] = useState(false);
 
-    function handleChangeEmail(e) {
-        setEmail(e.target.value);
-    }
+    useEffect(() => {
+        resetForm();
+    }, [resetForm]);
 
-    function handleChangePassword(e) {
-        setPassword(e.target.value)
-    }
-
-    function handleSubmit(e) {
-        // Запрещаем браузеру переходить по адресу формы
+    const handleSubmit = e => {
         e.preventDefault();
-        setEmail('')
-        setPassword('')
-        // Передаём значения управляемых компонентов во внешний обработчик
-        props.onRegisterUser({
-            "password": password,
-            "email": email
-        });
-    }
+        if (!isValid) {
+            return;
+        }
+        setDisabled(true);
+        mainApi.login(values)
+            .then(data => {
+                setUser(data);
+                navigate("/movies", { replace: true });
+                setLoggedIn(data._id);
+            })
+            .catch(err => { console.log(err) })
+            .finally(() => {
+                setDisabled(false);
+            });
+    };
 
     return (
         <main>
@@ -37,19 +50,20 @@ function Login(props) {
                         <img className="form-in__logo" alt='Лого' src={logo} />
                     </Link>
                     <h1 className="form-in__title">Рады видеть!</h1>
-                    <form className="form-in__form" onSubmit={handleSubmit}>
+                    <form className="form-in__form" onSubmit={e => { handleSubmit(e) }}>
                         <div className="form-in__section">
                             <label className='form-in__input-name'>E-mail</label>
                             <input
+                                disabled={disabled}
                                 type="text"
                                 className="form-in__input"
-                                id="email_sign-in"
-                                name="email_sign-in"
+                                id="email"
+                                name="email"
                                 required minLength="2"
                                 maxLength="40"
                                 placeholder='pochta@yandex.ru'
-                                onChange={handleChangeEmail}
-                                value={email || ''}
+                                onChange={e => { handleChange(e) }}
+                                value={values.email || ''}
                             />
                             <span className="form-in__input-error"></span>
                         </div>
@@ -58,17 +72,17 @@ function Login(props) {
                             <input
                                 type="password"
                                 className="form-in__input"
-                                id="password_sign-in"
-                                name="password_sign-in"
+                                id="password"
+                                name="password"
                                 required minLength="2"
                                 maxLength="200"
                                 placeholder='Password'
-                                onChange={handleChangePassword}
-                                value={password || ''}
+                                onChange={e => { handleChange(e) }}
+                                value={values.password || ''}
                             />
                             <span className="form-in__input-error"></span>
                         </div>
-                        <button type="submit" className="form-in__submit">Войти</button>
+                        <button type="submit" className="form-in__submit" disabled={disabled || !isValid}>Войти</button>
                     </form>
                     <div className='form-in__link-container'>
                         <p className='form-in__link-text'>Ещё не зарегистрированы?</p>
