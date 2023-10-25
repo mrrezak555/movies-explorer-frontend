@@ -1,8 +1,11 @@
 import Preloader from "../Preloader/Preloader";
 import '../MoviesCardList/MoviesCardList.css'
 import SavedCard from "../SavedCard/SavedCard";
+import { useContext } from "react";
+import { MoviesContext } from "../../context/MoviesContext";
 
-const SavedCardList = ({ savedDisplayedMovies, deleteHandler, error, isLoading }) => {
+const SavedCardList = ({ savedDisplayedMovies, deleteHandler }) => {
+  const { isLoading, error } = useContext(MoviesContext);
   const cards =
     savedDisplayedMovies &&
     savedDisplayedMovies.map(item => {

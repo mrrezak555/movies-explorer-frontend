@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "../../../context/MoviesContext";
 import { SavedInputContext } from "../../../context/SavedInputContext";
 import { mainApi } from "../../../utils/MainApi";
@@ -9,28 +9,31 @@ import "../../SearchForm/SearchForm.css";
 
 const SavedSearchForm = () => {
   const { handleInput, handleRadio, value } = useContext(SavedInputContext);
-  const { savedMovies, setSavedMovies, savedDisplayedMovies, setSavedDisplayedMovies } = useContext(MoviesContext);
+  const { savedMovies, setSavedMovies, setSavedDisplayedMovies, setIsLoading } = useContext(MoviesContext);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     mainApi.getMovies()
       .then((res) => {
-        console.log(res)
-        setSavedDisplayedMovies(res)
+        setSavedDisplayedMovies(res);
+        setData(res);
       })
+      .finally(setIsLoading)
   }, []);
 
   useEffect(() => {
-    const sortedMovies = sortSavedMovies(savedMovies, value);
+    const sortedMovies = sortSavedMovies(data, value);
     if (sortedMovies.length === 0) {
-      return setSavedDisplayedMovies([]);
+      return setSavedDisplayedMovies([...sortedMovies]);
     }
-    setSavedDisplayedMovies(sortedMovies);
+    setSavedDisplayedMovies([...sortedMovies]);
   }, [value.radio]);
 
   const sortSavedMovies = (arr, config) => {
     const { input, radio } = config
 
-    return arr.filter(item => {
+    return [...arr].filter(item => {
       const namedCheck = item.nameRU.toLowerCase().includes(input.toLowerCase())
       const durationCheck = radio ? item.duration < 40 : true
       return namedCheck && durationCheck
@@ -47,16 +50,14 @@ const SavedSearchForm = () => {
           if (sortedMovies.length === 0) {
             return setSavedDisplayedMovies([]);
           }
-          setSavedDisplayedMovies(sortedMovies);
+          setSavedDisplayedMovies([...sortedMovies]);
         })
         .catch(err => console.log(err))
         .finally(() => { });
     }
     const sortedMovies = sortMovies(savedMovies, value);
-    setSavedDisplayedMovies(sortedMovies);
+    setSavedDisplayedMovies([...sortedMovies]);
   }
-
-
 
   return (
     <section className="search">

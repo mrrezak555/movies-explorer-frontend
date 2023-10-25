@@ -72,6 +72,7 @@ function Profile(props) {
         } else {
             setValues({ name: user.name, email: user.email });
             setIsEditActive(true);
+            setIsDisabled(false);
         }
     };
     const navigate = useNavigate();
@@ -104,9 +105,10 @@ function Profile(props) {
         <button
             type={"submit"}
             disabled={
-                (values.email === user.email && values.name === user.name) ||
-                !isValid ||
-                isDateNew
+                ((values.email === user.email && values.name === user.name) ||
+                    !isValid ||
+                    isDateNew)
+                && isDisabled
             }
             className={
                 isEditActive

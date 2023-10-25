@@ -1,24 +1,17 @@
 import { useContext, useEffect, useState } from "react";
+import { MoviesContext } from "../../context/MoviesContext";
+import useRenderMovies from "../../hooks/useRenderMovies";
+import { mainApi } from "../../utils/MainApi";
 import Footer from "../Footer/Footer";
 import MoreMovies from "../MoreMovies/MoreMovies";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Navigation from "../Navigation/Navigation";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
-import './Movies.css';
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import OwnedIcon from "../Ui/OwnedIcon";
-import { MoviesContext } from "../../context/MoviesContext";
-import { mainApi } from "../../utils/MainApi";
-import useRenderMovies from "../../hooks/useRenderMovies";
-import { apiMovies } from "../../utils/apiMovies";
-import { sortMovies } from "../../utils/sortMoviies";
-import { filterMovies } from "../../utils/filterMovies";
-import { InfoToolTipContext } from "../../context/InfoToolTipProvider";
+import './Movies.css';
 
 const Movies = () => {
-  // const { setToolTipMessage, setToolTipTitle } = useContext(InfoToolTipContext);
-  // const { setIsOk, openInfoToolTip } = useContext(InfoToolTipContext);
-
   const { visibleCards, loadMore, resetCardsCount } = useRenderMovies();
 
   const [data, setData] = useState([]);
@@ -90,10 +83,6 @@ const Movies = () => {
           localStorage.removeItem("movies");
           return;
         }
-        // setToolTipTitle("Произошла ошибка");
-        // setToolTipMessage("Попробуйте позже");
-        // setIsOk(false);
-        // openInfoToolTip();
       });
   };
 

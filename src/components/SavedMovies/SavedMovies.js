@@ -1,54 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Navigation from '../Navigation/Navigation'
-import Popup from '../Popup/Popup'
-import { InfoToolTipContext } from '../../context/InfoToolTipProvider'
+import React, { useContext } from 'react'
 import { MoviesContext } from '../../context/MoviesContext'
+import useRenderMovies from '../../hooks/useRenderMovies'
 import { mainApi } from '../../utils/MainApi'
-import { sortMovies } from '../../utils/sortMoviies'
 import SavedSearchForm from '../App/SavedSearchForm/SavedSearchForm'
 import Footer from '../Footer/Footer'
 import MoreMovies from '../MoreMovies/MoreMovies'
+import Navigation from '../Navigation/Navigation'
+import Popup from '../Popup/Popup'
 import SavedCardList from '../SavedCardList/SavedCardList'
 import './SavedMovies.css'
-import useRenderMovies from '../../hooks/useRenderMovies'
 
 export default function SavedMovies() {
   const { savedMovies, setSavedMovies, setMovies, movies, savedDisplayedMovies, setSavedDisplayedMovies } = useContext(MoviesContext);
-  // const { setToolTipMessage, setToolTipTitle, openInfoToolTip, setIsOk } = useContext(InfoToolTipContext);
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const { visibleCards, loadMore, resetCardsCount } = useRenderMovies();
+  const { resetCardsCount } = useRenderMovies();
 
   const handleResetCards = () => {
     resetCardsCount();
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    mainApi
-      .getMovies()
-      .then(res => {
-        setData(res);
-        setSavedMovies(res);
-      })
-      .catch(err => {
-        console.log("Ошибка при вызове mainApi.getMovies()", err);
-        if (err === "Ошибка 401") {
-          localStorage.removeItem("id");
-          localStorage.removeItem("movies");
-        } else {
-          // setToolTipTitle("Произошла ошибка");
-          // setToolTipMessage("Попробуйте позже");
-          // setIsOk(false);
-          // openInfoToolTip();
-          console.log(err)
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
 
   const deleteHandler = id => {
     mainApi
@@ -72,10 +40,6 @@ export default function SavedMovies() {
           localStorage.removeItem("movies");
         } else {
           console.log(err);
-          // setToolTipTitle("Произошла ошибка");
-          // setToolTipMessage("Попробуйте позже");
-          // setIsOk(false);
-          // openInfoToolTip();
         }
       });
   };
@@ -87,8 +51,6 @@ export default function SavedMovies() {
         <SavedCardList
           savedDisplayedMovies={savedDisplayedMovies}
           deleteHandler={deleteHandler}
-          isLoading={isLoading}
-          error={isError}
         />
         <MoreMovies isMore={false} />
       </section>
