@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { PopupProvider } from '../../context/PopupProvider';

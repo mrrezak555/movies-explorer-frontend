@@ -12,9 +12,6 @@ function Register() {
     const navigate = useNavigate();
     const { setUser } = useContext(CurrentUserContext);
     const { setLoggedIn } = useContext(CurrentUserContext);
-    // const { setToolTipMessage, openInfoToolTip, setToolTipTitle } = useContext(
-    //   InfoToolTipContext
-    // );
     const {
         values,
         handleChange,
@@ -40,19 +37,7 @@ function Register() {
                 setLoggedIn(data);
                 navigate("/movies", { replace: true });
             })
-            .catch(err => {
-                //   if (err === "Ошибка 409") {
-                //     setToolTipTitle("Произошла ошибка");
-                //     setToolTipMessage("Данная почта уже используется");
-                //     openInfoToolTip();
-                //   } else {
-                //     setToolTipTitle("Произошла ошибка");
-                //     setToolTipMessage("Попробуйте позже");
-                //     openInfoToolTip();
-                // }
-            })
             .finally(() => {
-                // getSortedMovies();
                 setDisabled(false);
             });
     };

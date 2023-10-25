@@ -19,12 +19,6 @@ function Profile(props) {
         setValues,
         isValid
     } = useValidation();
-    //   const {
-    //     setToolTipMessage,
-    //     openInfoToolTip,
-    //     setToolTipTitle,
-    //     setIsOk
-    //   } = useContext(InfoToolTipContext);
     const [isDateNew, setIsDateNew] = useState(false);
 
     const handlerChange = e => {
@@ -93,9 +87,6 @@ function Profile(props) {
                     navigate("/", { replace: true });
                     setLoggedOut();
                 }
-                // setToolTipTitle("Произошла ошибка");
-                // setToolTipMessage("Попробуйте позже");
-                // openInfoToolTip();
             })
             .finally(() => {
                 setIsLoading(false);
