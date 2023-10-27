@@ -1,28 +1,111 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MoviesContext } from "../../context/MoviesContext";
+import useRenderMovies from "../../hooks/useRenderMovies";
+import { mainApi } from "../../utils/MainApi";
 import Footer from "../Footer/Footer";
 import MoreMovies from "../MoreMovies/MoreMovies";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Navigation from "../Navigation/Navigation";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
-import './Movies.css';
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { data } from '../../utils/testData'
 import OwnedIcon from "../Ui/OwnedIcon";
+import './Movies.css';
 
-function Movies(props) {
+const Movies = () => {
+  const { visibleCards, loadMore, resetCardsCount } = useRenderMovies();
+
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const { movies, setMovies, displayedMovies } = useContext(MoviesContext);
+  useEffect(() => {
+    setData([...displayedMovies]);
+  }
+    , [displayedMovies]);
+
+  const handleResetCards = () => {
+    resetCardsCount();
+  };
+
+  const addHandler = card => {
+    mainApi
+      .postMovie(card)
+      .then(res => {
+        const sortedData = [...movies].map(item => {
+          if (item.id === Number(res.movieId)) {
+            return { ...item, _id: res._id };
+          }
+          return item;
+        });
+        setMovies(sortedData);
+        setData(
+          [...data].map(item => {
+            if (item.id === Number(res.movieId)) {
+              return { ...item, _id: res._id };
+            }
+            return item;
+          })
+        );
+      })
+      .catch(err => {
+        if (err === "Ошибка 401") {
+          localStorage.removeItem("id");
+          localStorage.removeItem("movies");
+          return;
+        }
+      });
+  };
+
+  const deleteHandler = card => {
+    mainApi
+      .deleteMovie(card._id)
+      .then(res => {
+        const sortedData = [...movies].map(item => {
+          if (item._id === res._id) {
+            return { ...item, _id: null };
+          }
+          return item;
+        });
+        setMovies(sortedData);
+        setData(
+          [...data].map(item => {
+            if (item._id === res._id) {
+              return { ...item, _id: null };
+            }
+            return item;
+          })
+        );
+      })
+      .catch(err => {
+        if (err === "Ошибка 401") {
+          localStorage.removeItem("id");
+          localStorage.removeItem("movies");
+          return;
+        }
+      });
+  };
 
   return (
     <div>
       <section className="movies">
         <Navigation />
-        <SearchForm />
+        <SearchForm handleResetCards={handleResetCards} />
         {(isLoading ?
           <Preloader />
           :
           <>
-            <MoviesCardList data={data.filmArray} element={OwnedIcon} />
-            <MoreMovies isMore={true} />
+            <MoviesCardList
+              isLoading={isLoading}
+              data={data.slice(0, visibleCards)}
+              element={OwnedIcon}
+              addHandler={addHandler}
+              deleteHandler={deleteHandler}
+            />
+            <MoreMovies
+              isMore={visibleCards <= data.length}
+              onClick={loadMore}
+            />
           </>
         )}
       </section>

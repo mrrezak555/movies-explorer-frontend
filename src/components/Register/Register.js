@@ -1,41 +1,46 @@
-import { Link, NavLink } from 'react-router-dom';
-import React from "react";
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
 import './Register.css';
 import logo from '../../images/logo.svg'
+import { mainApi } from '../../utils/MainApi';
+import useValidation from '../../hooks/useValidation';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { MoviesContext } from '../../context/MoviesContext';
 
 
-function Register(props) {
+function Register() {
+    const navigate = useNavigate();
+    const { setUser } = useContext(CurrentUserContext);
+    const { setLoggedIn } = useContext(CurrentUserContext);
+    const {
+        values,
+        handleChange,
+        errors,
+        isValid,
+        resetForm
+    } = useValidation();
+    const [disabled, setDisabled] = useState(false);
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [name, setName] = React.useState('');
-
-
-    function handleChangeEmail(e) {
-        setEmail(e.target.value);
-    }
-
-    function handleChangeName(e) {
-        setName(e.target.value);
-    }
-
-    function handleChangePassword(e) {
-        setPassword(e.target.value)
-    }
-
-    function handleSubmit(e) {
-        // Запрещаем браузеру переходить по адресу формы
+    useEffect(() => {
+        resetForm();
+    }, [resetForm]);
+    const handleSubmit = e => {
         e.preventDefault();
-        setEmail('')
-        setPassword('')
-        setName('')
-        // Передаём значения управляемых компонентов во внешний обработчик
-        props.onRegisterUser({
-            "password": password,
-            "email": email,
-            "name": name,
-        });
-    }
+        if (!isValid) {
+            return;
+        }
+        setDisabled(true);
+        mainApi
+            .register(values)
+            .then(data => {
+                setUser(data);
+                setLoggedIn(data);
+                navigate("/movies", { replace: true });
+            })
+            .finally(() => {
+                setDisabled(false);
+            });
+    };
 
     return (
         <main>
@@ -45,19 +50,19 @@ function Register(props) {
                         <img className="form-in__logo" alt='Лого' src={logo} />
                     </Link>
                     <h1 className="form-in__title">Добро пожаловать!</h1>
-                    <form className="form-in__form" onSubmit={handleSubmit}>
+                    <form className="form-in__form" onSubmit={e => { handleSubmit(e) }}>
                         <div className="form-in__section">
                             <label className='form-in__input-name'>Имя</label>
                             <input
                                 type="text"
                                 className="form-in__input"
-                                id="email_sign-in"
-                                name="email_sign-in"
+                                id="name"
+                                name="name"
                                 placeholder='Виталий'
                                 required minLength="2"
                                 maxLength="40"
-                                onChange={handleChangeName}
-                                value={name || ''}
+                                onChange={e => { handleChange(e) }}
+                                value={values.name || ''}
                             />
                             <span className="form-in__input-error"></span>
                         </div>
@@ -66,13 +71,12 @@ function Register(props) {
                             <input
                                 type="text"
                                 className="form-in__input"
-                                id="email_sign-in"
-                                name="email_sign-in"
+                                name="email"
                                 placeholder='NewPochta@yandex.ru'
                                 required minLength="2"
                                 maxLength="40"
-                                onChange={handleChangeEmail}
-                                value={email || ''}
+                                onChange={e => { handleChange(e) }}
+                                value={values.email || ''}
                             />
                             <span className="form-in__input-error"></span>
                         </div>
@@ -81,13 +85,12 @@ function Register(props) {
                             <input
                                 type="password"
                                 className="form-in__input"
-                                id="password_sign-in"
-                                name="password_sign-in"
+                                name="password"
                                 placeholder='Password'
                                 required minLength="2"
                                 maxLength="200"
-                                onChange={handleChangePassword}
-                                value={password || ''} />
+                                onChange={e => { handleChange(e) }}
+                                value={values.password || ''} />
                             <span className="form-in__input-error"></span>
                         </div>
                         <button type="submit" className="form-in__submit">Зарегистрироваться</button>

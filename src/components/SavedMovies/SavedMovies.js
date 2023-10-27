@@ -1,29 +1,61 @@
-import React from 'react'
-import Popup from '../Popup/Popup'
-import Navigation from '../Navigation/Navigation'
-import SearchForm from '../SearchForm/SearchForm'
-import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import MoreMovies from '../MoreMovies/MoreMovies'
+import React, { useContext } from 'react'
+import { MoviesContext } from '../../context/MoviesContext'
+import useRenderMovies from '../../hooks/useRenderMovies'
+import { mainApi } from '../../utils/MainApi'
+import SavedSearchForm from '../App/SavedSearchForm/SavedSearchForm'
 import Footer from '../Footer/Footer'
-import { data } from '../../utils/testData'
-import DeleteButton from '../Ui/DeleteButton'
+import MoreMovies from '../MoreMovies/MoreMovies'
+import Navigation from '../Navigation/Navigation'
+import Popup from '../Popup/Popup'
+import SavedCardList from '../SavedCardList/SavedCardList'
 import './SavedMovies.css'
 
-
 export default function SavedMovies() {
+  const { savedMovies, setSavedMovies, setMovies, movies, savedDisplayedMovies, setSavedDisplayedMovies } = useContext(MoviesContext);
+  const { resetCardsCount } = useRenderMovies();
+
+  const handleResetCards = () => {
+    resetCardsCount();
+  };
+
+  const deleteHandler = id => {
+    mainApi
+      .deleteMovie(id)
+      .then(res => {
+        setMovies(
+          [...movies].map(item => {
+            if (item._id === res._id) {
+              item._id = null;
+              return item;
+            }
+            return item;
+          })
+        );
+        setSavedMovies([...savedMovies].filter(item => item._id !== res._id));
+        setSavedDisplayedMovies([...savedDisplayedMovies].filter(item => item._id !== res._id));
+      })
+      .catch(err => {
+        if (err === "Ошибка 401") {
+          localStorage.removeItem("id");
+          localStorage.removeItem("movies");
+        } else {
+          console.log(err);
+        }
+      });
+  };
   return (
     <>
-      <Popup />
-      <section className='saved-movies'>
+      <section className="movies">
         <Navigation />
-        <div>
-          <SearchForm />
-          <MoviesCardList data={data.filmArraySaved}
-            element={DeleteButton} />
-          <MoreMovies isMore={false} />
-        </div>
-        <Footer />
+        <SavedSearchForm handleResetCards={handleResetCards} />
+        <SavedCardList
+          savedDisplayedMovies={savedDisplayedMovies}
+          deleteHandler={deleteHandler}
+        />
+        <MoreMovies isMore={false} />
       </section>
+      <Popup />
+      <Footer />
     </>
   )
 }

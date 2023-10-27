@@ -1,11 +1,9 @@
 import "./MoreMovies.css"
 
-function MoreMovies({ isMore }) {
-    const loaderStyle = isMore ? "load-more" : "spacer";
-
+function MoreMovies({ isMore, onClick }) {
     return (
         <section className="more">
-            {isMore && <button type='button' className="more-button">Еще</button>}
+            {isMore && <button type='button' className="more-button" onClick={onClick}>Еще</button>}
         </section>
     );
 }

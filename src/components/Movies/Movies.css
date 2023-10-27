@@ -1,4 +1,6 @@
 .movies {
   background-color: #202020;
   font-family: 'Inter', sans-serif;
+  min-height: 80vh;
+  /* justify-content: space-between; */
 }
