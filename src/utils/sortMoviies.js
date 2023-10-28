@@ -2,7 +2,6 @@ import { SHORT_FILM_DURATION } from "./mediaScreens";
 
 export const sortMovies = (arr, config = {}) => {
   const { input, radio } = config;
-  console.log(arr, config)
 
   if (input && typeof input === "string") {
     const searchTerm = input.toLowerCase();
