@@ -6,7 +6,6 @@ import DeleteButton from '../Ui/DeleteButton';
 export default function SavedCard({ savedDisplayedMovies, remove }) {
   const handleRemove = () => {
     remove(savedDisplayedMovies._id);
-    console.log('delete')
   };
 
   return (

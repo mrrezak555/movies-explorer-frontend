@@ -78,7 +78,6 @@ class MainApi {
   }
 
   _checkResponse(res) {
-    console.log("Ответ сервера:", res);
     if (res.ok) {
       return res.json();
     }
@@ -88,7 +87,7 @@ class MainApi {
 
 export const mainApi = new MainApi({
   baseUrl: "https://api.movies.best.nomoredomains.monster",
-  //baseUrl: "http://localhost:3000",
+  // baseUrl: "http://localhost:3000",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json"
