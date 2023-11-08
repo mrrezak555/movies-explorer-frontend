@@ -2,3 +2,12 @@
   background-color: #202020;
   font-family: 'Inter', sans-serif;
 }
+
+.saved-movies__not-found {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

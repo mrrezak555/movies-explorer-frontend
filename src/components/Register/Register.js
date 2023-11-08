@@ -1,11 +1,10 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from "react";
-import './Register.css';
-import logo from '../../images/logo.svg'
-import { mainApi } from '../../utils/MainApi';
-import useValidation from '../../hooks/useValidation';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { MoviesContext } from '../../context/MoviesContext';
+import useValidation from '../../hooks/useValidation';
+import logo from '../../images/logo.svg';
+import { mainApi } from '../../utils/MainApi';
+import './Register.css';
 
 
 function Register() {
@@ -65,35 +64,45 @@ function Register() {
                                 value={values.name || ''}
                             />
                             <span className="form-in__input-error"></span>
+                            {errors.name && <span className="form-in__input-error">{errors.name}</span>}
                         </div>
                         <div className="form-in__section">
                             <label className='form-in__input-name'>E-mail</label>
                             <input
-                                type="text"
+                                disabled={disabled}
+                                type="email"
                                 className="form-in__input"
                                 name="email"
+                                pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$"
                                 placeholder='NewPochta@yandex.ru'
-                                required minLength="2"
-                                maxLength="40"
                                 onChange={e => { handleChange(e) }}
                                 value={values.email || ''}
                             />
+                            {errors.email && <span className="form-in__input-error">{errors.email}</span>}
                             <span className="form-in__input-error"></span>
                         </div>
                         <div className="form-in__section">
                             <label className='form-in__input-name'>Пароль</label>
                             <input
+                                disabled={disabled}
                                 type="password"
                                 className="form-in__input"
                                 name="password"
                                 placeholder='Password'
-                                required minLength="2"
-                                maxLength="200"
+                                required
+                                minLength="8"
                                 onChange={e => { handleChange(e) }}
                                 value={values.password || ''} />
                             <span className="form-in__input-error"></span>
+                            {errors.password && <span className="form-in__input-error">{errors.password}</span>}
                         </div>
-                        <button type="submit" className="form-in__submit">Зарегистрироваться</button>
+                        <button
+                            type="submit"
+                            className="form-in__submit"
+                            disabled={disabled}
+                        >
+                            Зарегистрироваться
+                        </button>
                     </form>
                     <div className='form-in__link-container'>
                         <p className='form-in__link-text'>Уже зарегистрированы?</p>

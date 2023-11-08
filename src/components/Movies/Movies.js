@@ -16,7 +16,6 @@ const Movies = () => {
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
   const { movies, setMovies, displayedMovies } = useContext(MoviesContext);
   useEffect(() => {
@@ -91,9 +90,9 @@ const Movies = () => {
       <section className="movies">
         <Navigation />
         <SearchForm handleResetCards={handleResetCards} />
-        {(isLoading ?
+        {isLoading ? (
           <Preloader />
-          :
+        ) : data.length > 0 ? (
           <>
             <MoviesCardList
               isLoading={isLoading}
@@ -102,11 +101,15 @@ const Movies = () => {
               addHandler={addHandler}
               deleteHandler={deleteHandler}
             />
-            <MoreMovies
-              isMore={visibleCards <= data.length}
-              onClick={loadMore}
-            />
+            {visibleCards < data.length &&
+              <MoreMovies
+                isMore={visibleCards <= data.length}
+                onClick={loadMore}
+              />
+            }
           </>
+        ) : (
+          <p className="movies__not-found">Ничего не найдено</p>
         )}
       </section>
       <Footer />

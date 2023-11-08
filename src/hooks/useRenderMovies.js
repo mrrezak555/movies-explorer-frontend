@@ -6,7 +6,6 @@ import {
   CARD_COUNT_SMALL,
   SCREEN_WIDTH_LARGE,
   SCREEN_WIDTH_MEDIUM,
-  SCREEN_WIDTH_SMALL,
   MORE_CARD_COUNT_SMALL,
   MORE_CARD_COUNT_MEDIUM,
   MORE_CARD_COUNT_LARGE,
@@ -14,32 +13,44 @@ import {
 
 const useRenderMovies = () => {
   const [cardsCount, setCardsCount] = useState(0);
-  const [visibleCards, setVisibleCards] = useState(cardsCount);
+  const [visibleCards, setVisibleCards] = useState(0);
   const [countMoreCards, setCountMoreCards] = useState(0);
 
   const loadMore = () => {
-    console.log('loadMore');
-    setVisibleCards(prevVisibleCards => prevVisibleCards + countMoreCards);
+    setVisibleCards(prevVisibleCards => {
+      const additionalCards = calculateAdditionalCards(prevVisibleCards);
+      return prevVisibleCards + additionalCards;
+    });
   };
 
   const resetCardsCount = () => {
     setVisibleCards(cardsCount);
   };
 
+  const calculateAdditionalCards = (currentVisible) => {
+    const screenWidth = window.innerWidth;
+    let additionalCards = countMoreCards;
+
+    if (screenWidth >= SCREEN_WIDTH_MEDIUM && screenWidth < SCREEN_WIDTH_LARGE) {
+      const cardsInRow = 3;
+      additionalCards = cardsInRow - (currentVisible % cardsInRow);
+      additionalCards = additionalCards === cardsInRow ? countMoreCards : additionalCards;
+    }
+
+    return additionalCards;
+  };
+
   const updateCardsCount = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= SCREEN_WIDTH_LARGE) {
-      setVisibleCards(CARD_COUNT_LARGE);
+      setCardsCount(CARD_COUNT_LARGE);
       setCountMoreCards(MORE_CARD_COUNT_LARGE);
-      return setCardsCount(CARD_COUNT_LARGE);
-    }
-    if (screenWidth >= SCREEN_WIDTH_MEDIUM) {
-      setVisibleCards(CARD_COUNT_MEDIUM);
+      setVisibleCards(CARD_COUNT_LARGE);
+    } else if (screenWidth >= SCREEN_WIDTH_MEDIUM) {
+      setCardsCount(CARD_COUNT_MEDIUM);
       setCountMoreCards(MORE_CARD_COUNT_MEDIUM);
-
-      return setCardsCount(CARD_COUNT_MEDIUM);
-    }
-    if (screenWidth <= SCREEN_WIDTH_SMALL) {
+      setVisibleCards(CARD_COUNT_MEDIUM);
+    } else if (screenWidth < SCREEN_WIDTH_MEDIUM) {
       setCardsCount(CARD_COUNT_SMALL);
       setCountMoreCards(MORE_CARD_COUNT_SMALL);
       setVisibleCards(CARD_COUNT_SMALL);
@@ -49,12 +60,10 @@ const useRenderMovies = () => {
   useEffect(() => {
     updateCardsCount();
     window.addEventListener("resize", updateCardsCount);
-    return () => {
-      window.removeEventListener("resize", updateCardsCount);
-    };
+    return () => window.removeEventListener("resize", updateCardsCount);
   }, []);
 
-  return { cardsCount, visibleCards, loadMore, resetCardsCount };
+  return { visibleCards, loadMore, resetCardsCount };
 };
 
 export default useRenderMovies;

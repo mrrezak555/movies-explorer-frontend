@@ -59,28 +59,32 @@ function Login() {
                                 className="form-in__input"
                                 id="email"
                                 name="email"
-                                required minLength="2"
-                                maxLength="40"
+                                required
+                                pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$"
+                                title="Введите корректный адрес электронной почты (например, example@example.com)"
                                 placeholder='pochta@yandex.ru'
                                 onChange={e => { handleChange(e) }}
                                 value={values.email || ''}
                             />
                             <span className="form-in__input-error"></span>
+                            {errors.email && <span className="form-in__input-error">{errors.email}</span>}
                         </div>
                         <div className="form-in__section">
                             <label className='form-in__input-name'>Пароль</label>
                             <input
+                                disabled={disabled}
                                 type="password"
                                 className="form-in__input"
                                 id="password"
                                 name="password"
-                                required minLength="2"
-                                maxLength="200"
+                                required
+                                minLength="8"
                                 placeholder='Password'
                                 onChange={e => { handleChange(e) }}
                                 value={values.password || ''}
                             />
                             <span className="form-in__input-error"></span>
+                            {errors.password && <span className="form-in__input-error">{errors.password}</span>}
                         </div>
                         <button type="submit" className="form-in__submit" disabled={disabled || !isValid}>Войти</button>
                     </form>

@@ -48,10 +48,14 @@ export default function SavedMovies() {
       <section className="movies">
         <Navigation />
         <SavedSearchForm handleResetCards={handleResetCards} />
-        <SavedCardList
-          savedDisplayedMovies={savedDisplayedMovies}
-          deleteHandler={deleteHandler}
-        />
+        {savedDisplayedMovies.length > 0 ? (
+          <SavedCardList
+            savedDisplayedMovies={savedDisplayedMovies}
+            deleteHandler={deleteHandler}
+          />
+        ) : (
+          <p className="saved-movies__not-found">Ничего не найдено</p>
+        )}
         <MoreMovies isMore={false} />
       </section>
       <Popup />

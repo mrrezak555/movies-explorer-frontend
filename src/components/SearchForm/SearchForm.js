@@ -22,7 +22,7 @@ const SearchForm = ({ handleResetCards }) => {
         setDisplayedMovies(sortedMovies);
     }, [value.radio]);
 
-    const { movies, setMovies, displayedMovies, setDisplayedMovies } = useContext(MoviesContext);
+    const { movies, setMovies, setDisplayedMovies } = useContext(MoviesContext);
 
     const handleSubmit = (evt) => {
         evt.preventDefault();

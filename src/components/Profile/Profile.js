@@ -1,10 +1,10 @@
-import "./Profile.css"
-import { Link, NavLink, useNavigate } from 'react-router-dom';
 import React, { useContext, useState } from "react";
-import Navigation from "../Navigation/Navigation";
+import { Link, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import useValidation from "../../hooks/useValidation";
 import { mainApi } from "../../utils/MainApi";
+import Navigation from "../Navigation/Navigation";
+import "./Profile.css";
 
 function Profile(props) {
     const { setLoggedOut, user, setUser } = useContext(CurrentUserContext);
@@ -40,23 +40,8 @@ function Profile(props) {
                 .patchUserInfo(values)
                 .then(res => {
                     setUser(res);
-                    //   setToolTipTitle("Success");
-                    //   setToolTipMessage("Данные профиля успешны изменены");
-                    //   setIsOk(true);
-                    //   openInfoToolTip();
                 })
                 .catch(err => {
-                    //   if (err === "Ошибка 409") {
-                    //     setToolTipTitle("Произошла ошибка");
-                    //     setToolTipMessage("Данная почта уже используется");
-                    //     setIsOk(false);
-                    //     openInfoToolTip();
-                    //   } else {
-                    //     setToolTipTitle("Произошла ошибка");
-                    //     setToolTipMessage("Попробуйте позже");
-                    //     setIsOk(false);
-                    //     openInfoToolTip();
-                    //   }
                 })
                 .finally(() => {
                     setIsDisabled(false);
@@ -92,6 +77,7 @@ function Profile(props) {
                 setIsLoading(false);
             });
     };
+
     const button = (
         <button
             type={"submit"}
@@ -103,7 +89,7 @@ function Profile(props) {
             }
             className={
                 isEditActive
-                    ? "form-in-profile__submit"
+                    ? "form-in-profile__submit-disabled"
                     : "form-in-profile__submit"
             }
         >
@@ -122,31 +108,40 @@ function Profile(props) {
                         <section className="form-in-profile__section">
                             <p className='form-in-profile__input-name'>{isEditActive ? "Имя" : user.name}</p>
                             {isEditActive ? (
-                                <input
-                                    type="text"
-                                    className="form-in-profile__input"
-                                    name="name"
-                                    required minLength="2"
-                                    maxLength="30"
-                                    onChange={handlerChange}
-                                    value={values.name || ''}
-                                />
+                                <>
+                                    <input
+                                        type="text"
+                                        className="form-in-profile__input"
+                                        name="name"
+                                        required
+                                        minLength="2"
+                                        maxLength="30"
+                                        onChange={handlerChange}
+                                        value={values.name || ''}
+                                    />
+                                </>
                             ) : (
                                 <p className='form-in-profile__input-name'>{user.name}</p>
                             )}
                         </section>
+                        {errors.name && <span className="form-in__input-error">{errors.name}</span>}
+                        {errors.email && <span className="form-in__input-error">{errors.email}</span>}
                         <section className="form-in-profile__section">
                             <p className='form-in-profile__input-name'>{isEditActive ? "E-mail" : user.email}</p>
                             {isEditActive ? (
-                                <input
-                                    type="text"
-                                    className="form-in-profile__input"
-                                    name="email"
-                                    required minLength="2"
-                                    maxLength="40"
-                                    onChange={handlerChange}
-                                    value={values.email || ''}
-                                />
+                                <>
+                                    <input
+                                        type="text"
+                                        className="form-in-profile__input"
+                                        name="email"
+                                        pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$"
+                                        required
+                                        minLength="2"
+                                        maxLength="40"
+                                        onChange={handlerChange}
+                                        value={values.email || ''}
+                                    />
+                                </>
                             ) : (
                                 <p className='form-in-profile__input-name'>{user.email}</p>
                             )}

@@ -6,8 +6,18 @@ const useValidation = () => {
   const [isValid, setIsValid] = useState(true);
   const handleChange = e => {
     const { name, value } = e.target;
+    let errorMessage = '';
+
+    if (name === 'email') {
+      if (!value) {
+        errorMessage = 'Заполните это поле';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        errorMessage = 'Неверный формат почты';
+      }
+    }
+
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: e.target.validationMessage });
+    setErrors({ ...errors, [name]: errorMessage || e.target.validationMessage });
     setIsValid(e.target.closest("form").checkValidity());
   };
   const resetForm = useCallback(

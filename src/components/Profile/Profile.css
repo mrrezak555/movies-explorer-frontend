@@ -59,6 +59,14 @@
     color: #FFFFFF;
 }
 
+.form-in__input-error {
+    color: #EE3465;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 .form-in-profile__section:last-of-type {
     margin-bottom: 220px;
     border: none;
@@ -86,6 +94,23 @@
     color: #FFFFFF;
     cursor: pointer;
     transition: opacity 0.05s linear;
+    justify-content: center;
+}
+
+.form-in-profile__submit-disabled {
+    border: none;
+    background: none;
+    padding: 0;
+    width: 410px;
+    height: 16px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #424242;
+    cursor: pointer;
     justify-content: center;
 }
 
@@ -157,6 +182,12 @@
 
 @media (max-width: 470px) {
     .form-in-profile__submit {
+        max-width: 260px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .form-in-profile__submit-disabled { 
         max-width: 260px;
         font-size: 12px;
         line-height: 15px;

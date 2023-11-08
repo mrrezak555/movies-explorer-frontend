@@ -4,3 +4,12 @@
   min-height: 80vh;
   /* justify-content: space-between; */
 }
+
+.movies__not-found {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
