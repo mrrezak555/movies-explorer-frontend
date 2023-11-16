@@ -44,7 +44,7 @@ class MoviesApi {
 }
 
 export const apiMovies = new MoviesApi({
-  baseUrl: "https://api.nomoreparties.co/",
+  baseUrl: "https://api.movies.best.nomoredomains.monster/",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json"
