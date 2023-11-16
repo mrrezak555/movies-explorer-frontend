@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const SavedInputContext = createContext(null);
 
 export const SavedInputProvider = ({ children }) => {
-  const initialState = { input: '', radio: false };
+  const initialState = JSON.parse(localStorage.getItem('valueSaved')) || { input: '', radio: false };
   const [value, setValue] = useState(initialState);
 
   const handleInput = (e) => {
@@ -13,7 +13,7 @@ export const SavedInputProvider = ({ children }) => {
     setValue({ ...value, radio: !value.radio })
   }
   const updateValue = () => {
-    const local = JSON.parse(localStorage.getItem('value'));
+    const local = JSON.parse(localStorage.getItem('valueSaved'));
     setValue({ ...local });
   }
 

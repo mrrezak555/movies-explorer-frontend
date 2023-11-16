@@ -8,6 +8,7 @@ import { CurrentUserProvider } from './context/CurrentUserContext';
 import { InputProvider } from './context/inputContext';
 import { MoviesProvider } from './context/MoviesContext';
 import { SavedInputProvider } from './context/SavedInputContext';
+import { InfoToolTipProvider } from './context/InfoToolTipProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +18,9 @@ root.render(
         <MoviesProvider>
           <InputProvider>
             <SavedInputProvider>
-              <App />
+              <InfoToolTipProvider>
+                <App />
+              </InfoToolTipProvider>
             </SavedInputProvider>
           </InputProvider>
         </MoviesProvider>

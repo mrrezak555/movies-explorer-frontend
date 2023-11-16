@@ -8,9 +8,13 @@ import "../../SearchForm/SearchForm.css";
 
 
 const SavedSearchForm = () => {
-  const { handleInput, handleRadio, value } = useContext(SavedInputContext);
+  const { handleInput, handleRadio, value, setValue } = useContext(SavedInputContext);
   const { savedMovies, setSavedMovies, setSavedDisplayedMovies, setIsLoading } = useContext(MoviesContext);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    resetForm()
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,6 +33,10 @@ const SavedSearchForm = () => {
     }
     setSavedDisplayedMovies([...sortedMovies]);
   }, [value.radio]);
+
+  const resetForm = () => {
+    setValue({ input: '', radio: false });
+  };
 
   const sortSavedMovies = (arr, config) => {
     const { input, radio } = config

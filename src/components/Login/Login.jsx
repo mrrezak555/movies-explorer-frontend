@@ -5,6 +5,8 @@ import logo from '../../images/logo.svg'
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import useValidation from '../../hooks/useValidation';
+import { InfoToolTipContext } from '../../context/InfoToolTipProvider';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 
 function Login() {
@@ -16,7 +18,12 @@ function Login() {
         isValid,
         resetForm
     } = useValidation();
-
+    const {
+        setToolTipMessage,
+        openInfoToolTip,
+        setToolTipTitle,
+        setIsOk
+    } = useContext(InfoToolTipContext);
     const { setLoggedIn, setUser } = useContext(CurrentUserContext);
     const [disabled, setDisabled] = useState(false);
 
@@ -36,7 +43,19 @@ function Login() {
                 navigate("/movies", { replace: true });
                 setLoggedIn(data._id);
             })
-            .catch(err => { console.log(err) })
+            .catch(err => {
+                if (err === "Ошибка 401") {
+                    setToolTipTitle("Произошла ошибка");
+                    setToolTipMessage("Неправильная почта или пароль");
+                    setIsOk(false);
+                    openInfoToolTip();
+                } else {
+                    setToolTipTitle("Произошла ошибка");
+                    setToolTipMessage("Попробуйте позже");
+                    setIsOk(false);
+                    openInfoToolTip();
+                }
+            })
             .finally(() => {
                 setDisabled(false);
             });
@@ -44,6 +63,7 @@ function Login() {
 
     return (
         <main>
+            <InfoToolTip />
             <div className='form-container'>
                 <div className="form-in">
                     <Link to={'/'}>

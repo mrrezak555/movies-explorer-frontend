@@ -81,6 +81,11 @@
     opacity: 0.6;
 }
 
+.form-in__submit:disabled {
+    background-color: #EE3465;
+    cursor: not-allowed;
+}
+
 .form-in__link-container {
     display: flex;
     align-items: center;

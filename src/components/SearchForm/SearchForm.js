@@ -7,12 +7,10 @@ import { filterMovies } from "../../utils/filterMovies";
 import { sortMovies } from "../../utils/sortMoviies";
 import { MoviesContext } from "../../context/MoviesContext";
 
-
 const SearchForm = ({ handleResetCards }) => {
     const { handleInput,
         handleRadio,
-        value,
-        handleSetLocalStorage } = useContext(InputContext);
+        value } = useContext(InputContext);
 
     useEffect(() => {
         const sortedMovies = sortMovies(movies, value);
@@ -24,27 +22,36 @@ const SearchForm = ({ handleResetCards }) => {
 
     const { movies, setMovies, setDisplayedMovies } = useContext(MoviesContext);
 
+    useEffect(() => {
+        const savedDisplayedMovies = JSON.parse(localStorage.getItem('displayedMovies'));
+        if (savedDisplayedMovies) {
+            setDisplayedMovies(savedDisplayedMovies);
+        }
+    }, []);
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
         handleResetCards();
         if (movies.length === 0) {
             return Promise.all([apiMovies.getMovies(), mainApi.getMovies()])
                 .then(([apiMovies, savedMovies]) => {
-                    handleSetLocalStorage();
                     const filteredMovies = filterMovies(apiMovies, savedMovies);
-                    setMovies(filteredMovies);
                     const sortedMovies = sortMovies(filteredMovies, value);
+                    setMovies(filteredMovies);
                     if (sortedMovies.length === 0) {
-                        return setDisplayedMovies([]);
+                        setDisplayedMovies([]);
+                    } else {
+                        setDisplayedMovies(sortedMovies);
+                        localStorage.setItem('displayedMovies', JSON.stringify(sortedMovies));
                     }
-                    setDisplayedMovies(sortedMovies);
                 })
-                .catch(err => console.log(err))
-                .finally(() => { });
+                .catch(err => console.log(err));
+        } else {
+            const sortedMovies = sortMovies(movies, value);
+            setDisplayedMovies(sortedMovies);
+            localStorage.setItem('displayedMovies', JSON.stringify(sortedMovies));
         }
-        const sortedMovies = sortMovies(movies, value);
-        setDisplayedMovies(sortedMovies);
-    }
+    };
 
     return (
         <section className="search">

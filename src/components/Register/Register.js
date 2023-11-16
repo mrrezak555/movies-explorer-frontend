@@ -5,6 +5,7 @@ import useValidation from '../../hooks/useValidation';
 import logo from '../../images/logo.svg';
 import { mainApi } from '../../utils/MainApi';
 import './Register.css';
+import { InfoToolTipContext } from "../../context/InfoToolTipProvider";
 
 
 function Register() {
@@ -18,6 +19,9 @@ function Register() {
         isValid,
         resetForm
     } = useValidation();
+    const { setToolTipMessage, openInfoToolTip, setToolTipTitle } = useContext(
+        InfoToolTipContext
+    );
     const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
@@ -35,6 +39,17 @@ function Register() {
                 setUser(data);
                 setLoggedIn(data);
                 navigate("/movies", { replace: true });
+            })
+            .catch(err => {
+                if (err === "Ошибка 409") {
+                    setToolTipTitle("Произошла ошибка");
+                    setToolTipMessage("Данная почта уже используется");
+                    openInfoToolTip();
+                } else {
+                    setToolTipTitle("Произошла ошибка");
+                    setToolTipMessage("Попробуйте позже");
+                    openInfoToolTip();
+                }
             })
             .finally(() => {
                 setDisabled(false);
@@ -99,7 +114,7 @@ function Register() {
                         <button
                             type="submit"
                             className="form-in__submit"
-                            disabled={disabled}
+                            disabled={disabled || !isValid}
                         >
                             Зарегистрироваться
                         </button>
