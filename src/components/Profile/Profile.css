@@ -67,6 +67,10 @@
     line-height: normal;
 }
 
+.form-in-profile__submit-active {
+    color: #FFFFFF;
+}
+
 .form-in-profile__section:last-of-type {
     margin-bottom: 220px;
     border: none;
@@ -97,7 +101,7 @@
     justify-content: center;
 }
 
-.form-in-profile__submit-disabled {
+.form-in-profile__submit:disabled {
     border: none;
     background: none;
     padding: 0;

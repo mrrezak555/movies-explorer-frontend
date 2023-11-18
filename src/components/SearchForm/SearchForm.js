@@ -7,10 +7,12 @@ import { filterMovies } from "../../utils/filterMovies";
 import { sortMovies } from "../../utils/sortMoviies";
 import { MoviesContext } from "../../context/MoviesContext";
 
+
 const SearchForm = ({ handleResetCards }) => {
     const { handleInput,
         handleRadio,
-        value } = useContext(InputContext);
+        value,
+        handleSetLocalStorage } = useContext(InputContext);
 
     useEffect(() => {
         const sortedMovies = sortMovies(movies, value);

@@ -5,10 +5,11 @@ import useValidation from "../../hooks/useValidation";
 import { mainApi } from "../../utils/MainApi";
 import Navigation from "../Navigation/Navigation";
 import "./Profile.css";
+import { InfoToolTipContext } from "../../context/InfoToolTipProvider";
+import InfoToolTip from "../InfoToolTip/InfoToolTip";
 
-function Profile(props) {
+function Profile() {
     const { setLoggedOut, user, setUser } = useContext(CurrentUserContext);
-
     const [isEditActive, setIsEditActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -20,6 +21,12 @@ function Profile(props) {
         isValid
     } = useValidation();
     const [isDateNew, setIsDateNew] = useState(false);
+    const {
+        setToolTipMessage,
+        openInfoToolTip,
+        setToolTipTitle,
+        setIsOk
+    } = useContext(InfoToolTipContext);
 
     const handlerChange = e => {
         handleChange(e);
@@ -40,8 +47,24 @@ function Profile(props) {
                 .patchUserInfo(values)
                 .then(res => {
                     setUser(res);
+                    setToolTipTitle("Success");
+                    setToolTipMessage("Данные профиля успешны изменены");
+                    setIsOk(true);
+                    openInfoToolTip();
+                    setValues({});
                 })
                 .catch(err => {
+                    if (err === "Ошибка 409") {
+                        setToolTipTitle("Произошла ошибка");
+                        setToolTipMessage("Данная почта уже используется");
+                        setIsOk(false);
+                        openInfoToolTip();
+                    } else {
+                        setToolTipTitle("Произошла ошибка");
+                        setToolTipMessage("Попробуйте позже");
+                        setIsOk(false);
+                        openInfoToolTip();
+                    }
                 })
                 .finally(() => {
                     setIsDisabled(false);
@@ -61,7 +84,7 @@ function Profile(props) {
         setIsLoading(true);
         mainApi
             .signout()
-            .then(res => {
+            .then(() => {
                 setLoggedOut();
             })
             .catch(err => {
@@ -72,6 +95,9 @@ function Profile(props) {
                     navigate("/", { replace: true });
                     setLoggedOut();
                 }
+                setToolTipTitle("Произошла ошибка");
+                setToolTipMessage("Попробуйте позже");
+                openInfoToolTip();
             })
             .finally(() => {
                 setIsLoading(false);
@@ -80,18 +106,9 @@ function Profile(props) {
 
     const button = (
         <button
-            type={"submit"}
-            disabled={
-                ((values.email === user.email && values.name === user.name) ||
-                    !isValid ||
-                    isDateNew)
-                && isDisabled
-            }
-            className={
-                isEditActive
-                    ? "form-in-profile__submit-disabled"
-                    : "form-in-profile__submit"
-            }
+            type="submit"
+            disabled={!isValid || (values.email === user.email && values.name === user.name) || isDateNew}
+            className={isEditActive ? "form-in-profile__submit" : "form-in-profile__submit"}
         >
             {isEditActive ? "Сохранить" : "Редактировать"}
         </button>
@@ -99,6 +116,7 @@ function Profile(props) {
     return (
         <main>
             <div className="form-profile-wrapper">
+                <InfoToolTip />
                 <Navigation />
             </div>
             <div className='form-profile-container'>
