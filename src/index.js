@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from '../src/components/App/App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import App from '../src/components/App/App';
 import { CurrentUserProvider } from './context/CurrentUserContext';
-import { InputProvider } from './context/inputContext';
-import { MoviesProvider } from './context/MoviesContext';
-import { SavedInputProvider } from './context/SavedInputContext';
 import { InfoToolTipProvider } from './context/InfoToolTipProvider';
+import { MoviesProvider } from './context/MoviesContext';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,20 +14,13 @@ root.render(
     <BrowserRouter>
       <CurrentUserProvider>
         <MoviesProvider>
-          <InputProvider>
-            <SavedInputProvider>
-              <InfoToolTipProvider>
-                <App />
-              </InfoToolTipProvider>
-            </SavedInputProvider>
-          </InputProvider>
+          <InfoToolTipProvider>
+            <App />
+          </InfoToolTipProvider>
         </MoviesProvider>
       </CurrentUserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

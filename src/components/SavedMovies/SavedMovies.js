@@ -43,6 +43,7 @@ export default function SavedMovies() {
         }
       });
   };
+
   return (
     <>
       <section className="movies">

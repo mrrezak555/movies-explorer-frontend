@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { PopupProvider } from '../../context/PopupProvider';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFoundPage/NotFound';
 import Popup from '../Popup/Popup';
+import Preloader from '../Preloader/Preloader';
 import Profile from '../Profile/Profile';
 import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 import RouteFromAuthorized from '../ProtectedRouter/RouteFromAuthorized';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);

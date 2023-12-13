@@ -6,6 +6,7 @@ import logo from '../../images/logo.svg';
 import { mainApi } from '../../utils/MainApi';
 import './Register.css';
 import { InfoToolTipContext } from "../../context/InfoToolTipProvider";
+import InfoToolTip from "../InfoToolTip/InfoToolTip";
 
 
 function Register() {
@@ -58,6 +59,7 @@ function Register() {
 
     return (
         <main>
+            <InfoToolTip />
             <div className='form-container'>
                 <div className="form-in">
                     <Link to={'/'}>

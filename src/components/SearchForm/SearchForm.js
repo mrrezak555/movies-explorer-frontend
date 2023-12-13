@@ -1,17 +1,28 @@
-import { useContext, useEffect } from "react";
-import "./SearchForm.css"
-import { InputContext } from "../../context/inputContext";
-import { apiMovies } from "../../utils/apiMovies";
+import { useContext, useEffect, useState } from "react";
+import { MoviesContext } from "../../context/MoviesContext";
 import { mainApi } from "../../utils/MainApi";
+import { apiMovies } from "../../utils/apiMovies";
 import { filterMovies } from "../../utils/filterMovies";
 import { sortMovies } from "../../utils/sortMoviies";
-import { MoviesContext } from "../../context/MoviesContext";
+import "./SearchForm.css";
 
 
 const SearchForm = ({ handleResetCards }) => {
-    const { handleInput,
-        handleRadio,
-        value } = useContext(InputContext);
+    const initialState = JSON.parse(localStorage.getItem('value')) || { input: '', radio: false };
+    const [value, setValue] = useState(initialState);
+    const handleInput = (e) => {
+        const updatedValue = { ...value, input: e.target.value };
+        setValue(updatedValue);
+        localStorage.setItem('value', JSON.stringify(updatedValue));
+    }
+
+    const handleRadio = () => {
+        const updatedValue = { ...value, radio: !value.radio };
+        setValue(updatedValue);
+        localStorage.setItem('value', JSON.stringify(updatedValue));
+    }
+
+    const { movies, setMovies, setDisplayedMovies } = useContext(MoviesContext);
 
     useEffect(() => {
         const sortedMovies = sortMovies(movies, value);
@@ -21,7 +32,6 @@ const SearchForm = ({ handleResetCards }) => {
         setDisplayedMovies(sortedMovies);
     }, [value.radio]);
 
-    const { movies, setMovies, setDisplayedMovies } = useContext(MoviesContext);
 
     useEffect(() => {
         if (!value.input) {

@@ -86,6 +86,8 @@ function Profile() {
             .signout()
             .then(() => {
                 setLoggedOut();
+                localStorage.clear();
+                window.location.reload();
             })
             .catch(err => {
                 if (

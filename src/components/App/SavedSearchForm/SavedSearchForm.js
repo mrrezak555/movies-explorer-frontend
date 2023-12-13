@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "../../../context/MoviesContext";
-import { SavedInputContext } from "../../../context/SavedInputContext";
 import { mainApi } from "../../../utils/MainApi";
 import { sortMovies } from "../../../utils/sortMoviies";
 import "../../SearchForm/SearchForm.css";
@@ -8,9 +7,17 @@ import "../../SearchForm/SearchForm.css";
 
 
 const SavedSearchForm = () => {
-  const { handleInput, handleRadio, value, setValue } = useContext(SavedInputContext);
   const { savedMovies, setSavedMovies, setSavedDisplayedMovies, setIsLoading } = useContext(MoviesContext);
-  const [data, setData] = useState([]);
+
+  const initialState = JSON.parse(localStorage.getItem('valueSaved')) || { input: '', radio: false };
+  const [value, setValue] = useState(initialState);
+
+  const handleInput = (e) => {
+    setValue({ ...value, input: e.target.value })
+  }
+  const handleRadio = () => {
+    setValue({ ...value, radio: !value.radio })
+  }
 
   useEffect(() => {
     resetForm()
@@ -21,13 +28,13 @@ const SavedSearchForm = () => {
     mainApi.getMovies()
       .then((res) => {
         setSavedDisplayedMovies(res);
-        setData(res);
+        setSavedMovies(res);
       })
       .finally(setIsLoading)
   }, []);
 
   useEffect(() => {
-    const sortedMovies = sortSavedMovies(data, value);
+    const sortedMovies = sortSavedMovies(savedMovies, value);
     if (sortedMovies.length === 0) {
       return setSavedDisplayedMovies([...sortedMovies]);
     }

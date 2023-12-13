@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { MoviesContext } from "../../context/MoviesContext";
+import { MoviesContext, MoviesProvider } from "../../context/MoviesContext";
 import useRenderMovies from "../../hooks/useRenderMovies";
 import { mainApi } from "../../utils/MainApi";
 import Footer from "../Footer/Footer";
